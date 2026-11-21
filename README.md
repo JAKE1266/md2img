@@ -1,5 +1,11 @@
 # md2img
 
+![Python](https://img.shields.io/badge/python-3.8%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Tests](https://img.shields.io/badge/tests-18%20passing-success)
+![Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
+
 Markdown 转分享卡片图 —— 用一条命令把一段 Markdown 变成排版精致的分享卡片（金句卡 / 知识卡 / 观点速递）。
 
 - **块级元素**：一/二/三级标题、段落、无序与有序列表、引用、代码块、分隔线
@@ -61,6 +67,19 @@ card.save("hello.png")
 ```bash
 python -m unittest discover -s tests
 # Ran 18 tests ... OK
+```
+
+
+## 📁 项目结构
+
+```
+md2img/
+├── LICENSE
+├── demo/
+├── md2img/
+├── pyproject.toml
+├── tests/
+└── README.md
 ```
 
 ## License
