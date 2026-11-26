@@ -1,15 +1,16 @@
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "md2img"
-version = "0.1.0"
+version = "0.1.1"
 description = "Markdown 转分享卡片图：三套主题、中文折行、代码块渲染、页脚署名"
 readme = "README.md"
-requires-python = ">=3.8"
-license = { text = "MIT" }
-dependencies = ["Pillow>=9.0"]
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["Pillow>=10.1"]
 keywords = ["markdown", "card", "分享卡片", "金句卡"]
 
 [project.scripts]

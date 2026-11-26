@@ -1,9 +1,9 @@
 # md2img
 
-![Python](https://img.shields.io/badge/python-3.8%2B-blue)
+![Python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Tests](https://img.shields.io/badge/tests-18%20passing-success)
-![Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
+![Tests](https://img.shields.io/badge/tests-19%20passing-success)
+![Dependencies](https://img.shields.io/badge/dependencies-1%20(Pillow)-blue)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
 
 Markdown 转分享卡片图 —— 用一条命令把一段 Markdown 变成排版精致的分享卡片（金句卡 / 知识卡 / 观点速递）。
@@ -15,13 +15,13 @@ Markdown 转分享卡片图 —— 用一条命令把一段 Markdown 变成排�
 - **卡片细节**：圆角纸面 + 背景衬托 + 标题强调竖条 + 引用竖线 + 页脚署名
 - **跨平台字体**：微软雅黑 / 黑体 / DejaVu / PingFang 回退链
 
-依赖 Pillow，Python ≥ 3.8。
+依赖 Pillow ≥ 10.1，Python ≥ 3.9。
 
 ## 安装
 
 ```bash
-pip install Pillow
-pip install .        # 获得 md2img 命令
+python -m pip install .
+md2img --help
 python -m md2img     # 无参数时打印示例 Markdown
 ```
 
@@ -66,15 +66,27 @@ card.save("hello.png")
 
 ```bash
 python -m unittest discover -s tests
-# Ran 18 tests ... OK
+# Ran 19 tests ... OK
 ```
 
+构建并验证真实发布产物：
+
+```bash
+python -m pip install build twine
+python -m build
+python -m twine check dist/*
+python -m pip install dist/md2img-0.1.1-py3-none-any.whl
+python tests/smoke_installed.py
+```
 
 ## 📁 项目结构
 
 ```
 md2img/
+├── .github/workflows/
 ├── LICENSE
+├── MANIFEST.in
+├── CHANGELOG.md
 ├── demo/
 ├── md2img/
 ├── pyproject.toml

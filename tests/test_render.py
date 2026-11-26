@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 import tempfile
@@ -70,19 +71,27 @@ class TestCli(unittest.TestCase):
             dst = Path(tmp) / "card.png"
             r = subprocess.run([sys.executable, "-m", "md2img", str(src), "-o", str(dst),
                                 "--theme", "dark", "--footer", "@me"],
-                               capture_output=True, text=True, encoding="utf-8",
-                               cwd=Path(__file__).resolve().parent.parent)
+                               capture_output=True, text=True, encoding="utf-8")
             self.assertEqual(r.returncode, 0, r.stderr)
             self.assertIn("已生成卡片", r.stdout)
             self.assertTrue(dst.exists())
-            with Image.open(dst) as img:  # with 确保 Windows 下句柄释放、临时目录可清理
+            with Image.open(dst) as img:
                 self.assertEqual(img.size[0], 720)
 
     def test_cli_missing_file(self):
         r = subprocess.run([sys.executable, "-m", "md2img", "nope.md"],
-                           capture_output=True, text=True, encoding="utf-8",
-                           cwd=Path(__file__).resolve().parent.parent)
+                           capture_output=True, text=True, encoding="utf-8")
         self.assertEqual(r.returncode, 1)
+
+    def test_cli_utf8_output_under_legacy_windows_encoding(self):
+        env = os.environ.copy()
+        env["PYTHONIOENCODING"] = "cp1252"
+        env.pop("PYTHONUTF8", None)
+
+        result = subprocess.run([sys.executable, "-m", "md2img"], capture_output=True, env=env)
+
+        self.assertEqual(result.returncode, 0, result.stderr.decode("utf-8", errors="replace"))
+        self.assertIn("加粗文字", result.stdout.decode("utf-8"))
 
 
 if __name__ == "__main__":

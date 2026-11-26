@@ -29,7 +29,15 @@ print("hello")
 """
 
 
+def _configure_standard_streams() -> None:
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is not None:
+            reconfigure(encoding="utf-8", errors="replace")
+
+
 def main(argv: list[str] | None = None) -> int:
+    _configure_standard_streams()
     ap = argparse.ArgumentParser(prog="md2img", description="Markdown 转分享卡片图")
     ap.add_argument("--version", action="version", version=f"md2img {__version__}")
     ap.add_argument("input", nargs="?", help="Markdown 文件；缺省时打印示例到 stdout")
